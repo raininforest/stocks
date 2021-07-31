@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_stock_min_height">100dp</dimen>
+    <dimen name="item_stock_elevation">4dp</dimen>
+    <dimen name="company_logo_size">88dp</dimen>
+    <dimen name="item_stock_padding">8dp</dimen>
+</resources>
