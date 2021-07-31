@@ -4,4 +4,8 @@
     <dimen name="item_stock_elevation">4dp</dimen>
     <dimen name="company_logo_size">88dp</dimen>
     <dimen name="item_stock_padding">8dp</dimen>
+
+    <dimen name="item_news_elevation">4dp</dimen>
+    <dimen name="item_news_min_height">120dp</dimen>
+    <dimen name="item_news_padding">8dp</dimen>
 </resources>

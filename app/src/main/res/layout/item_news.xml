@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/item_news_min_height"
+    app:cardBackgroundColor="@color/primaryLightColor"
+    app:cardElevation="@dimen/item_news_elevation">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/item_news_padding">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/newsHeaderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:singleLine="false"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/newsSummaryTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Полиция разогнала организованный «Открытой Россией» форум муниципальных депутатов" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/newsSummaryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:singleLine="false"
+            app:layout_constraintBottom_toTopOf="@id/newsSourceTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newsHeaderTextView"
+            tools:text="Сотрудники полиции пришли на Всероссийский форум муниципальных депутатов «Муниципальная Россия», организованный «Открытой Россией» (связана с Михаилом Ходорковским)." />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/newsSourceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newsSummaryTextView"
+            tools:text="The Economic Times India  22.02.2021 10:45" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
