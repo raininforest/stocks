@@ -10,11 +10,11 @@
         android:id="@+id/stocksToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/app_name"
-        android:elevation="1dp"
         app:titleCentered="true" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,5 +24,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/stocksToolbar" />
+        app:layout_constraintTop_toBottomOf="@id/stocksToolbar"
+        tools:listitem="@layout/item_stock" />
 </androidx.constraintlayout.widget.ConstraintLayout>
