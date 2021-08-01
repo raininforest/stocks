@@ -1,7 +1,8 @@
-package com.github.raininforest.stocks
+package com.github.raininforest.stocks.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.github.raininforest.stocks.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
