@@ -9,31 +9,31 @@ import com.github.raininforest.stocks.mvp.model.entity.room.RoomNewsEntity
 @Dao
 interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: RoomNewsEntity)
+    fun insert(news: RoomNewsEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg users: RoomNewsEntity)
+    fun insert(vararg news: RoomNewsEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(users: List<RoomNewsEntity>)
+    fun insert(news: List<RoomNewsEntity>)
 
     @Update
-    fun update(user: RoomNewsEntity)
+    fun update(news: RoomNewsEntity)
 
     @Update
-    fun update(vararg users: RoomNewsEntity)
+    fun update(vararg news: RoomNewsEntity)
 
     @Update
-    fun update(users: List<RoomNewsEntity>)
+    fun update(news: List<RoomNewsEntity>)
 
     @Delete
-    fun delete(user: RoomNewsEntity)
+    fun delete(news: RoomNewsEntity)
 
     @Delete
-    fun delete(vararg users: RoomNewsEntity)
+    fun delete(vararg news: RoomNewsEntity)
 
     @Delete
-    fun delete(users: List<RoomNewsEntity>)
+    fun delete(news: List<RoomNewsEntity>)
 
     @Query("SELECT * FROM RoomNewsEntity")
     fun getAll(): List<RoomNewsEntity>

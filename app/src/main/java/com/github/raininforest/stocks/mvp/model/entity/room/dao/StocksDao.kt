@@ -9,31 +9,31 @@ import com.github.raininforest.stocks.mvp.model.entity.room.RoomStockEntity
 @Dao
 interface StocksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: RoomStockEntity)
+    fun insert(stock: RoomStockEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg users: RoomStockEntity)
+    fun insert(vararg stocks: RoomStockEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(users: List<RoomStockEntity>)
+    fun insert(stocks: List<RoomStockEntity>)
 
     @Update
-    fun update(user: RoomStockEntity)
+    fun update(stock: RoomStockEntity)
 
     @Update
-    fun update(vararg users: RoomStockEntity)
+    fun update(vararg stocks: RoomStockEntity)
 
     @Update
-    fun update(users: List<RoomStockEntity>)
+    fun update(stocks: List<RoomStockEntity>)
 
     @Delete
-    fun delete(user: RoomStockEntity)
+    fun delete(stock: RoomStockEntity)
 
     @Delete
-    fun delete(vararg users: RoomStockEntity)
+    fun delete(vararg stocks: RoomStockEntity)
 
     @Delete
-    fun delete(users: List<RoomStockEntity>)
+    fun delete(stocks: List<RoomStockEntity>)
 
     @Query("SELECT * FROM RoomStockEntity")
     fun getAll(): List<RoomStockEntity>
