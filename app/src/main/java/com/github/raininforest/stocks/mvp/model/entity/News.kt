@@ -6,5 +6,6 @@ package com.github.raininforest.stocks.mvp.model.entity
 data class News(
     val header: String,
     val summary: String,
-    val sourceUrl: String
+    val source: String,
+    val url: String
 )
