@@ -12,9 +12,10 @@ import com.github.raininforest.stocks.mvp.model.entity.room.dao.StocksDao
  */
 @Database(
     entities = [RoomStockEntity::class, RoomNewsEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
-abstract class Database : RoomDatabase() {
+abstract class StocksDatabase : RoomDatabase() {
     abstract val stocksDao: StocksDao
     abstract val newsDao: NewsDao
 

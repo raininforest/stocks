@@ -2,7 +2,7 @@ package com.github.raininforest.stocks.mvp.model.cache.room
 
 import com.github.raininforest.stocks.mvp.model.cache.INewsCache
 import com.github.raininforest.stocks.mvp.model.entity.News
-import com.github.raininforest.stocks.mvp.model.entity.room.db.Database
+import com.github.raininforest.stocks.mvp.model.entity.room.db.StocksDatabase
 import com.github.raininforest.stocks.mvp.model.toNewsList
 import com.github.raininforest.stocks.mvp.model.toRoomNewsEntityList
 import io.reactivex.rxjava3.core.Completable
@@ -13,7 +13,7 @@ import java.lang.RuntimeException
 /**
  * Created by Sergey Velesko on 01.08.2021
  */
-class RoomNewsCache(val db: Database) : INewsCache {
+class RoomNewsCache(val db: StocksDatabase) : INewsCache {
     override fun getNews(ticker: String): Single<List<News>> =
         Single.fromCallable {
             val roomStockEntity = db.stocksDao.findTicker(ticker)
@@ -23,8 +23,6 @@ class RoomNewsCache(val db: Database) : INewsCache {
 
     override fun putNews(ticker: String, news: List<News>): Completable =
         Completable.fromAction {
-            val roomStockEntity = db.stocksDao.findTicker(ticker)
-                ?: throw RuntimeException("No ticker in cache: $ticker")
             db.newsDao.insert(news.toRoomNewsEntityList(ticker))
         }.subscribeOn(Schedulers.io())
 }
