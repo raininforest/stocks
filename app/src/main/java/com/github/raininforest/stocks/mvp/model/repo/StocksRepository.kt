@@ -30,14 +30,10 @@ class StocksRepository(
     private fun requestStockInfoByTickerList(listStockDTO: List<StockDTO>): Single<List<Stock>> =
         Single.create { emitter ->
             val resultList = mutableListOf<Stock>()
-            listStockDTO.subList(0, 10)
+            listStockDTO.subList(0, 10) //because api has no pagination and list is huge
                 .forEach { stockDTO ->
-                    requestEachStockInfo(stockDTO)
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(
-                            { resultList.add(it) },
-                            { it.printStackTrace() }
-                        )
+                    resultList.add(requestEachStockInfo(stockDTO)
+                        .blockingGet())
                 }
             emitter.onSuccess(resultList)
         }
