@@ -39,7 +39,13 @@ class App : Application(), IStocksScopeContainer, INewsScopeContainer {
             private set
     }
 
-    fun initStocksSubComponent() = appComponent
+    fun initNewsSubComponent() = stocksSubcomponent?.newsSubComponent().also {
+        newsSubcomponent = it
+    }
+
+    fun initStocksSubComponent() = appComponent.stocksSubComponent().also {
+        stocksSubcomponent = it
+    }
 
     override fun releaseStocksScope() {
         stocksSubcomponent = null
