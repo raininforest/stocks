@@ -6,6 +6,7 @@ import com.github.raininforest.stocks.mvp.model.entity.room.RoomStockEntity
 /**
  * Created by Sergey Velesko on 01.08.2021
  */
+@Dao
 interface StocksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: RoomStockEntity)
@@ -38,5 +39,5 @@ interface StocksDao {
     fun getAll(): List<RoomStockEntity>
 
     @Query("SELECT * FROM RoomStockEntity WHERE ticker = :ticker LIMIT 1")
-    fun findByTicker(ticker: String): RoomStockEntity?
+    fun findTicker(ticker: String): RoomStockEntity?
 }

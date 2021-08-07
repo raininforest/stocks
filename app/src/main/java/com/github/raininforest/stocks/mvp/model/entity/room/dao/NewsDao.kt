@@ -6,6 +6,7 @@ import com.github.raininforest.stocks.mvp.model.entity.room.RoomNewsEntity
 /**
  * Created by Sergey Velesko on 01.08.2021
  */
+@Dao
 interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: RoomNewsEntity)
@@ -38,5 +39,5 @@ interface NewsDao {
     fun getAll(): List<RoomNewsEntity>
 
     @Query("SELECT * FROM RoomNewsEntity WHERE tickerId = :ticker LIMIT 1")
-    fun findByTicker(ticker: String): RoomNewsEntity?
+    fun findByTicker(ticker: String): List<RoomNewsEntity>
 }
