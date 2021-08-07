@@ -1,5 +1,6 @@
 package com.github.raininforest.stocks.mvp.model.repo
 
+import com.github.raininforest.stocks.mvp.model.api.ApiMock
 import com.github.raininforest.stocks.mvp.model.api.IRemoteApi
 import com.github.raininforest.stocks.mvp.model.api.dto.StockDTO
 import com.github.raininforest.stocks.mvp.model.cache.IStocksCache
@@ -20,8 +21,10 @@ class StocksRepository(
     override fun getStocks(): Single<List<Stock>> =
         networkStatus.isOnlineSingle().flatMap { isOnline ->
             if (isOnline) {
-                api.stockList()
+                //api.stockList() //disabled because of null/empty data for most tickers. ApiMock returns popular tickers instead.
+                ApiMock.stockList()
                     .flatMap { requestStockInfoByTickerList(it) }
+                    .flatMap { cache.putStocks(it).toSingleDefault(it) }
             } else {
                 cache.getStocks()
             }
@@ -32,8 +35,10 @@ class StocksRepository(
             val resultList = mutableListOf<Stock>()
             listStockDTO.subList(0, 10) //because api has no pagination and list is huge
                 .forEach { stockDTO ->
-                    resultList.add(requestEachStockInfo(stockDTO)
-                        .blockingGet())
+                    requestEachStockInfo(stockDTO)
+                        .blockingSubscribe {
+                            resultList.add(it)
+                        }
                 }
             emitter.onSuccess(resultList)
         }
@@ -46,8 +51,8 @@ class StocksRepository(
                 Stock(
                     ticker = p1.ticker,
                     companyName = p1.name,
-                    price = "${p2.c.toString()} ${p1.currency}",
-                    change = p2.dp.toString(),
+                    price = "${p2.c} ${p1.currency}",
+                    change = p2.d,
                     logoUrl = p1.logo
                 )
             }
