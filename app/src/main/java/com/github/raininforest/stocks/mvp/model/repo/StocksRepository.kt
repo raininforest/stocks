@@ -21,8 +21,8 @@ class StocksRepository(
     override fun getStocks(): Single<List<Stock>> =
         networkStatus.isOnlineSingle().flatMap { isOnline ->
             if (isOnline) {
-                //api.stockList() //disabled because of null/empty data for most tickers. ApiMock returns popular tickers instead.
-                ApiMock.stockList()
+                //api.stockList()   //disabled because of null/empty data for most tickers.
+                ApiMock.stockList() //ApiMock returns popular tickers instead.
                     .flatMap { requestStockInfoByTickerList(it) }
                     .flatMap { cache.putStocks(it).toSingleDefault(it) }
             } else {
@@ -52,7 +52,7 @@ class StocksRepository(
                     ticker = p1.ticker,
                     companyName = p1.name,
                     price = "${p2.c} ${p1.currency}",
-                    change = p2.d,
+                    change = "${p2.d} ${p1.currency}",
                     logoUrl = p1.logo
                 )
             }

@@ -3,6 +3,7 @@ package com.github.raininforest.stocks.ui.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.raininforest.stocks.App
 import com.github.raininforest.stocks.databinding.FragmentStocksBinding
@@ -13,6 +14,7 @@ import com.github.raininforest.stocks.ui.BackButtonListener
 import com.github.raininforest.stocks.ui.adapter.StocksAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+
 
 class StocksFragment : MvpAppCompatFragment(), StocksView, BackButtonListener {
 
@@ -50,6 +52,11 @@ class StocksFragment : MvpAppCompatFragment(), StocksView, BackButtonListener {
 
     override fun init() {
         vb?.stockRecyclerView?.layoutManager = LinearLayoutManager(context)
+        val dividerItemDecoration = DividerItemDecoration(
+            vb?.stockRecyclerView?.context,
+            LinearLayoutManager.VERTICAL
+        )
+        vb?.stockRecyclerView?.addItemDecoration(dividerItemDecoration)
         adapter = StocksAdapter(presenter.stocksListPresenter).apply {
             stocksSubComponent?.inject(this)
         }
