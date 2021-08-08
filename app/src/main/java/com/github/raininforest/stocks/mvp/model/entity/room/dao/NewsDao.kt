@@ -38,6 +38,6 @@ interface NewsDao {
     @Query("SELECT * FROM RoomNewsEntity")
     fun getAll(): List<RoomNewsEntity>
 
-    @Query("SELECT * FROM RoomNewsEntity WHERE tickerId = :ticker LIMIT 1")
+    @Query("SELECT * FROM RoomNewsEntity WHERE tickerId = :ticker")
     fun findByTicker(ticker: String): List<RoomNewsEntity>
 }
