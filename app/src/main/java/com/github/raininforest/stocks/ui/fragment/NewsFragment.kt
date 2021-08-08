@@ -1,60 +1,84 @@
 package com.github.raininforest.stocks.ui.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.github.raininforest.stocks.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.raininforest.stocks.App
+import com.github.raininforest.stocks.databinding.FragmentNewsBinding
+import com.github.raininforest.stocks.mvp.presenter.NewsPresenter
+import com.github.raininforest.stocks.mvp.view.NewsView
+import com.github.raininforest.stocks.ui.BackButtonListener
+import com.github.raininforest.stocks.ui.adapter.NewsAdapter
+import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class NewsFragment : MvpAppCompatFragment(), NewsView, BackButtonListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [NewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class NewsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    companion object {
+        private const val ARG_TICKER = "ticker"
+
+        @JvmStatic
+        fun newInstance(ticker: String) =
+            NewsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_TICKER, ticker)
+                }
+            }
+    }
+
+    private var vb: FragmentNewsBinding? = null
+
+    var adapter: NewsAdapter? = null
+
+    val presenter: NewsPresenter by moxyPresenter {
+        val ticker = arguments?.getString(ARG_TICKER) ?: ""
+        NewsPresenter(ticker).apply {
+            App.instance.initNewsSubComponent()?.inject(this)
+        }
+    }
+
+    private var ticker: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            ticker = it.getString(ARG_TICKER)
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false)
+    ) =
+        FragmentNewsBinding.inflate(inflater, container, false)
+            .also { vb = it }
+            .root
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        vb = null
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NewsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NewsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun backPressed() = presenter.backPressed()
+
+    override fun init() {
+        vb?.newsToolbar?.title = ticker
+        vb?.newsToolbar?.setNavigationOnClickListener { presenter.backPressed() }
+        vb?.newsRecyclerView?.layoutManager = LinearLayoutManager(context)
+        adapter = NewsAdapter(presenter.newsListItemPresenter)
+        vb?.newsRecyclerView?.adapter = adapter
+    }
+
+    override fun updateList() {
+        adapter?.notifyDataSetChanged()
+    }
+
+    override fun openLink(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }
