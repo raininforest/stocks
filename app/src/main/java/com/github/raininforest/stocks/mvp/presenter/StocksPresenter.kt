@@ -69,7 +69,7 @@ class StocksPresenter : MvpPresenter<StocksView>() {
                 stocksListPresenter.stocks.addAll(stocks)
                 viewState.updateList()
             }, {
-                println("[ Error ]: ${it.message}")
+                println("[ Stocks ERROR ]: ${it.message}")
             })
     }
 
