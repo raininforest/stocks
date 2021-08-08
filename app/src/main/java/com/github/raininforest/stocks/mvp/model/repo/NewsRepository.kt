@@ -16,7 +16,7 @@ class NewsRepository(
     val api: IRemoteApi,
     val networkStatus: INetworkStatus,
     val cache: INewsCache,
-    val dateGenerator: DateGenerator
+    private val dateGenerator: DateGenerator
 ) : INewsRepository {
     override fun getNews(ticker: String): Single<List<News>> =
         networkStatus.isOnlineSingle().flatMap { isOnline ->
