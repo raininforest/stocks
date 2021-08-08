@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.raininforest.stocks.App
 import com.github.raininforest.stocks.databinding.FragmentNewsBinding
@@ -68,7 +69,13 @@ class NewsFragment : MvpAppCompatFragment(), NewsView, BackButtonListener {
     override fun init() {
         vb?.newsToolbar?.title = ticker
         vb?.newsToolbar?.setNavigationOnClickListener { presenter.backPressed() }
+
         vb?.newsRecyclerView?.layoutManager = LinearLayoutManager(context)
+        val dividerItemDecoration = DividerItemDecoration(
+            vb?.newsRecyclerView?.context,
+            LinearLayoutManager.VERTICAL
+        )
+        vb?.newsRecyclerView?.addItemDecoration(dividerItemDecoration)
         adapter = NewsAdapter(presenter.newsListItemPresenter)
         vb?.newsRecyclerView?.adapter = adapter
     }
