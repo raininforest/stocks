@@ -10,6 +10,12 @@ object ApiMock {
     fun stockList(): Single<List<StockDTO>> =
         Single.just(
             listOf(
+                StockDTO("MU"),
+                StockDTO("NOW"),
+                StockDTO("CRM"),
+                StockDTO("V"),
+                StockDTO("YNDX"),
+                StockDTO("SNPS"),
                 StockDTO("AAPL"),
                 StockDTO("GM"),
                 StockDTO("TSLA"),
