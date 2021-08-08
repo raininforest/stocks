@@ -33,7 +33,8 @@ class StocksRepository(
     private fun requestStockInfoByTickerList(listStockDTO: List<StockDTO>): Single<List<Stock>> =
         Single.create { emitter ->
             val resultList = mutableListOf<Stock>()
-            listStockDTO.subList(0, 10) //because api has no pagination and list is huge
+            listStockDTO
+                //.subList(0, 10) //because api has no pagination and list is huge
                 .forEach { stockDTO ->
                     requestEachStockInfo(stockDTO)
                         .blockingSubscribe {
