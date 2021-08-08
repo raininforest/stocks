@@ -1,15 +1,13 @@
 package com.github.raininforest.stocks.mvp.view
 
-import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 /**
- * Created by Sergey Velesko on 31.07.2021
+ * Created by Sergey Velesko on 08.08.2021
  */
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface NewsView : MvpView, ViewWithLoading {
-    fun init()
-    fun updateList()
-    fun openLink(url: String)
+interface ViewWithLoading {
+    fun showLoading()
+    fun hideLoading()
 }

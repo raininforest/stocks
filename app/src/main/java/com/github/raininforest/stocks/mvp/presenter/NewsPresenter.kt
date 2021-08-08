@@ -49,6 +49,7 @@ class NewsPresenter(val ticker: String) : MvpPresenter<NewsView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
+        viewState.showLoading()
         loadData()
 
         newsListItemPresenter.itemClickListener = { itemView ->
@@ -64,6 +65,7 @@ class NewsPresenter(val ticker: String) : MvpPresenter<NewsView>() {
                 newsListItemPresenter.news.clear()
                 newsListItemPresenter.news.addAll(repositories)
                 viewState.updateList()
+                viewState.hideLoading()
             }, {
                 println("[ News ERROR ]: ${it.message}")
             })

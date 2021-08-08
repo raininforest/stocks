@@ -53,6 +53,7 @@ class StocksPresenter : MvpPresenter<StocksView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
+        viewState.showLoading()
         loadData()
 
         stocksListPresenter.itemClickListener = { itemView ->
@@ -68,6 +69,7 @@ class StocksPresenter : MvpPresenter<StocksView>() {
                 stocksListPresenter.stocks.clear()
                 stocksListPresenter.stocks.addAll(stocks)
                 viewState.updateList()
+                viewState.hideLoading()
             }, {
                 println("[ Stocks ERROR ]: ${it.message}")
             })

@@ -2,6 +2,7 @@ package com.github.raininforest.stocks.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,4 +69,12 @@ class StocksFragment : MvpAppCompatFragment(), StocksView, BackButtonListener {
     }
 
     override fun backPressed() = presenter.backPressed()
+
+    override fun showLoading() {
+        vb?.progressBar?.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        vb?.progressBar?.visibility = View.GONE
+    }
 }

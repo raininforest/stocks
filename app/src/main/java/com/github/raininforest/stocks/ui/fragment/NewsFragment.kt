@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -87,5 +88,13 @@ class NewsFragment : MvpAppCompatFragment(), NewsView, BackButtonListener {
     override fun openLink(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+
+    override fun showLoading() {
+        vb?.progressBar?.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        vb?.progressBar?.visibility = View.GONE
     }
 }
